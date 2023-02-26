@@ -2,9 +2,12 @@
 
 ## Installation steps
 
+### create destination namespace
+```
 TNS=grafana
 oc new-project ${TNS}
 oc project ${TNS}
+```
 
 ### install OperatorGroup in namespace ONLY if no other already present
 ```
