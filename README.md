@@ -49,12 +49,12 @@ EOF
 
 ### wait for resource created and status Succeeded
 ```
-oc get csv -n ${TNS} | grep grafana-operator
-
 oc get installplans.operators.coreos.com -n ${TNS}
+
+oc get csv -n ${TNS} | grep grafana-operator
 ```
 
-### add grafana user to Thanos oauth htpasswd domain
+### [OpenShift 4.10 only] add grafana user to Thanos using basi authentication (oauth htpasswd domain)
 ```
 THANOS_USER=thanos
 THANOS_PASSWORD=passw0rd
@@ -86,7 +86,7 @@ curl -sk -u "thanos:passw0rd" https://thanos-querier.openshift-monitoring.svc.cl
 
 ```
 
-### create Prometheus datasource with basic authentication to Thanos
+### [OpenShift 4.10 only] create Prometheus datasource with basic authentication to Thanos
 ```
 cat <<EOF | oc apply -f -
 apiVersion: integreatly.org/v1alpha1
@@ -111,6 +111,11 @@ spec:
       basicAuthUser: ${THANOS_USER}
   name: prometheus-grafanadatasource-basic.yaml
 EOF
+```
+
+### [OpenShift 4.11 TBD] 
+```
+# need to investigate about TLS auth...
 ```
 
 ### install Grafana instance
