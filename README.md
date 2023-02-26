@@ -88,11 +88,12 @@ curl -sk -u "thanos:passw0rd" https://thanos-querier.openshift-monitoring.svc.cl
 
 ### [OpenShift 4.10 only] create Prometheus datasource with basic authentication to Thanos
 ```
+DSIDX=""
 cat <<EOF | oc apply -f -
 apiVersion: integreatly.org/v1alpha1
 kind: GrafanaDataSource
 metadata:
-  name: prometheus-grafanadatasource-basic
+  name: prometheus-grafanadatasource-basic${DSIDX}
   namespace: ${TNS}
 spec:
   datasources:
